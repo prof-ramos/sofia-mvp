@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /Users/gabrielramos/sofia-mvp add:*)",
+      "Bash(git -C /Users/gabrielramos/sofia-mvp commit -m \"$\\(cat <<''EOF''\ndocs: adicionar plano de implementação MVP Sofia e configurações\n\n- Adicionar PLAN.md com roadmap completa de 4 fases\n- Configurar Vercel CLI e linkar projeto\n- Adicionar documentação de agentes e brand kit\n- Configurar CodeRabbit para revisão de código\n\nFase 1: Autenticação Supabase + Histórico de Conversas\nFase 2: Upload e Processamento de Documentos\nFase 3: Sistema de Tools Extensível \\(MCP\\)\nFase 4: Integrações Externas e Webhooks\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
+    ]
+  }
+}
