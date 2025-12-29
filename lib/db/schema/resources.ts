@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { text, varchar, timestamp, pgTable } from "drizzle-orm/pg-core";
+import { text, varchar, timestamp, pgTable, uuid, jsonb, index } from "drizzle-orm/pg-core";
 import { createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -10,6 +10,9 @@ export const resources = pgTable("resources", {
     .primaryKey()
     .$defaultFn(() => nanoid()),
   content: text("content").notNull(),
+  userId: uuid("user_id"),
+  documentId: varchar("document_id", { length: 191 }),
+  metadata: jsonb("metadata"),
 
   createdAt: timestamp("created_at")
     .notNull()
@@ -17,7 +20,10 @@ export const resources = pgTable("resources", {
   updatedAt: timestamp("updated_at")
     .notNull()
     .default(sql`now()`),
-});
+}, (table) => ({
+  userIdIdx: index("idx_resources_user_id").on(table.userId),
+  documentIdIdx: index("idx_resources_document_id").on(table.documentId),
+}));
 
 // Schema for resources - used to validate API requests
 export const insertResourceSchema = createSelectSchema(resources)

@@ -1,0 +1,138 @@
+{
+  "project": {
+    "name": "Sofia MVP",
+    "description": "Next.js 15 RAG System com Vercel AI SDK e Supabase",
+    "type": "nextjs-app-router-rag",
+    "version": "0.1.0"
+  },
+
+  "language": {
+    "primary": "typescript",
+    "framework": "nextjs-15",
+    "mode": "strict"
+  },
+
+  "paths": {
+    "baseUrl": "./",
+    "aliases": {
+      "@/*": "./*",
+      "@/components": "./components",
+      "@/lib": "./lib",
+      "@/app": "./app"
+    },
+    "src": "./",
+    "components": "./components",
+    "lib": "./lib",
+    "schemas": "./lib/db/schema",
+    "actions": "./lib/actions",
+    "ai": "./lib/ai",
+    "api": "./app/(preview)/api",
+    "migrations": "./lib/db/migrations",
+    "ui": "./components/ui"
+  },
+
+  "packageManager": "pnpm",
+
+  "database": {
+    "orm": "drizzle",
+    "dialect": "postgresql",
+    "provider": "supabase",
+    "schemaPath": "./lib/db/schema",
+    "migrationsPath": "./lib/db/migrations",
+    "configFile": "./drizzle.config.ts",
+    "features": {
+      "vectorExtension": true,
+      "pgvector": true,
+      "embeddings": true,
+      "hnswIndex": true
+    }
+  },
+
+  "ai": {
+    "sdk": "vercel-ai-sdk-5",
+    "models": {
+      "chat": "openai/gpt-4o",
+      "embedding": "openai/text-embedding-ada-002"
+    },
+    "features": {
+      "streaming": true,
+      "tools": true,
+      "embeddings": true,
+      "rag": true,
+      "generateObject": true
+    },
+    "embeddingDimensions": 1536
+  },
+
+  "ui": {
+    "library": "shadcn-ui",
+    "style": "default",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "rsc": true,
+    "components": {
+      "path": "@/components",
+      "ui": "@/components/ui"
+    },
+    "styling": {
+      "framework": "tailwindcss",
+      "config": "./tailwind.config.ts",
+      "css": "./app/globals.css",
+      "utils": "@/lib/utils"
+    },
+    "animation": "framer-motion"
+  },
+
+  "validation": {
+    "library": "zod",
+    "version": "4.1.12",
+    "integration": "drizzle-zod",
+    "pattern": "createSelectSchema"
+  },
+
+  "conventions": {
+    "idGeneration": "nanoid-custom",
+    "fileNaming": "kebab-case",
+    "componentNaming": "PascalCase",
+    "typeNaming": "PascalCase",
+    "serverActions": "use-server-directive",
+    "clientComponents": "use-client-directive",
+    "errorHandling": "try-catch-with-message"
+  },
+
+  "env": {
+    "validation": "@t3-oss/env-nextjs",
+    "file": ".env.local",
+    "example": ".env.example",
+    "required": [
+      "DATABASE_URL",
+      "AI_GATEWAY_API_KEY"
+    ]
+  },
+
+  "scripts": {
+    "dev": "pnpm dev",
+    "build": "pnpm build",
+    "db:generate": "pnpm db:generate",
+    "db:migrate": "pnpm db:migrate",
+    "db:studio": "pnpm db:studio",
+    "db:push": "pnpm db:push"
+  },
+
+  "features": {
+    "appRouter": true,
+    "serverComponents": true,
+    "serverActions": true,
+    "streaming": true,
+    "vectorSearch": true,
+    "ragSystem": true
+  },
+
+  "codeStyle": {
+    "quoteMark": "double",
+    "semicolons": true,
+    "trailingComma": "es5",
+    "arrowParens": "always",
+    "printWidth": 80
+  }
+}

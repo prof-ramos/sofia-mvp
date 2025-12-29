@@ -1,5 +1,5 @@
 import { nanoid } from "@/lib/utils";
-import { index, pgTable, text, varchar, vector } from "drizzle-orm/pg-core";
+import { index, pgTable, text, varchar, vector, uuid } from "drizzle-orm/pg-core";
 import { resources } from "./resources";
 
 export const embeddings = pgTable(
@@ -12,6 +12,7 @@ export const embeddings = pgTable(
       () => resources.id,
       { onDelete: "cascade" },
     ),
+    userId: uuid("user_id"),
     content: text("content").notNull(),
     embedding: vector("embedding", { dimensions: 1536 }).notNull(),
   },
@@ -20,5 +21,6 @@ export const embeddings = pgTable(
       "hnsw",
       table.embedding.op("vector_cosine_ops"),
     ),
+    userIdIdx: index("idx_embeddings_user_id").on(table.userId),
   }),
 );
